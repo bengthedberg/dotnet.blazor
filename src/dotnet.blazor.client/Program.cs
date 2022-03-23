@@ -2,12 +2,27 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using dotnet.blazor.client;
 using MudBlazor.Services;
+using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.UseLoadingBar();
+
+builder.Services.AddScoped(sp =>
+    new HttpClient
+    {
+        BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+    }.EnableIntercept(sp));
+
 builder.Services.AddMudServices();
+
+builder.Services.AddLoadingBar(options =>
+{
+  options.LoadingBarColor = "yellow";
+}); 
+
+builder.UseLoadingBar(); 
 
 await builder.Build().RunAsync();
