@@ -17,3 +17,9 @@ run:
 
 watch:
 	dotnet watch --project src/dotnet.blazor.client/dotnet.blazor.client.csproj run
+
+local-api:
+	json-server --watch src/dotnet.blazor.client/wwwroot/sample-data/data.json
+
+slow-local-api:
+	json-server --watch --delay 1000 src/dotnet.blazor.client/wwwroot/sample-data/data.json

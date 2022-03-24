@@ -13,16 +13,17 @@ builder.UseLoadingBar();
 builder.Services.AddScoped(sp =>
     new HttpClient
     {
-        BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+        BaseAddress = new Uri("http://localhost:3000")
     }.EnableIntercept(sp));
 
 builder.Services.AddMudServices();
 
 builder.Services.AddLoadingBar(options =>
 {
-  options.LoadingBarColor = "yellow";
+//  options.LoadingBarColor = "yellow";
 }); 
 
 builder.UseLoadingBar(); 
 
 await builder.Build().RunAsync();
+ 
