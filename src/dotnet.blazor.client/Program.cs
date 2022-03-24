@@ -11,11 +11,15 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.UseLoadingBar();
 
-builder.Services.AddScoped(sp =>
-    new HttpClient
+builder.Services.AddHttpClient("Client.API", config =>
     {
-        BaseAddress = new Uri("http://localhost:3000")
-    }.EnableIntercept(sp));
+        config.BaseAddress = new Uri("http://localhost:3000");
+        config.Timeout = new TimeSpan(0, 0, 30);
+        config.DefaultRequestHeaders.Clear();
+    });
+
+builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("Client.API")
+    .EnableIntercept(sp));
 
 builder.Services.AddMudServices();
 builder.Services.AddBlazoredLocalStorage();
