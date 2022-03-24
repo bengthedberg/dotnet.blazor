@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using dotnet.blazor.client;
 using MudBlazor.Services;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
+using Blazored.LocalStorage;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -17,6 +18,7 @@ builder.Services.AddScoped(sp =>
     }.EnableIntercept(sp));
 
 builder.Services.AddMudServices();
+builder.Services.AddBlazoredLocalStorage();
 
 builder.Services.AddLoadingBar(options =>
 {
