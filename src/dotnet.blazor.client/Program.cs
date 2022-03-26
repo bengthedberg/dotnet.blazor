@@ -14,7 +14,7 @@ builder.UseLoadingBar();
 
 builder.Services.AddHttpClient("Client.API", config =>
     {
-        config.BaseAddress = new Uri("http://localhost:3000");
+        config.BaseAddress = new Uri("http://localhost:8000");
         config.Timeout = new TimeSpan(0, 0, 30);
         config.DefaultRequestHeaders.Clear();
     });

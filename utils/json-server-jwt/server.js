@@ -97,7 +97,9 @@ server.post("/auth/login", (req, res) => {
     res.status(status).json({ status, message });
     return;
   }
-  const access_token = createToken({ email, password });
+  const name = email;
+  const access_token = createToken({ "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name": name, email, password,
+  });
   console.log("Access Token:" + access_token);
   res.status(200).json({ access_token });
 });

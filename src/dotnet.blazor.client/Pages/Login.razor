@@ -1,0 +1,65 @@
+﻿@page "/login"
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthStateProvider
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager NavigationManager
+
+@using System.ComponentModel.DataAnnotations
+
+<MudGrid Justify="Justify.Center">
+    <MudItem xs="8">
+        <EditForm Model="@model" OnValidSubmit="OnValidSubmit" xs="12">
+        <DataAnnotationsValidator/>
+        <MudGrid>
+            <MudItem xs="12" sm="7">
+                <MudCard>
+                    <MudCardContent>
+                        <MudTextField Label="Email" Class="mt-3"
+                                    @bind-Value="model.Email" For="@(() => model.Email)"/>
+                        <MudTextField Label="Password" Class="mt-3"
+                                    @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password"/>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Login</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
+        </EditForm>
+    </MudItem>
+</MudGrid>
+
+
+@code {
+    LoginUserRequest model = new LoginUserRequest();
+    public class LoginRequestResponse
+    {
+        public string access_token  {get; set;} = string.Empty;
+    }
+
+    public class LoginUserRequest
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100,MinimumLength = 6)]
+        public string Password { get; set; } = string.Empty;
+
+    }
+
+    private async Task OnValidSubmit(EditContext context)
+    {
+        var result = await Http.PostAsJsonAsync("/auth/login", model);
+        var token = await result.Content.ReadFromJsonAsync<LoginRequestResponse>();
+
+        System.Console.WriteLine($"token: {token.access_token}");    
+
+        await LocalStorage.SetItemAsync("token", token.access_token);
+        await AuthStateProvider.GetAuthenticationStateAsync();
+
+        NavigationManager.NavigateTo("");
+    }
+
+}
