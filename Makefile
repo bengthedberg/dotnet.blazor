@@ -23,3 +23,6 @@ local-api:
 
 slow-local-api:
 	json-server --watch --delay 1000 src/dotnet.blazor.client/wwwroot/sample-data/data.json
+
+local-api-jwt:
+	cd utils/json-server-jwt && npm run start-auth	
