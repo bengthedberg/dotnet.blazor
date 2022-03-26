@@ -5,3 +5,4 @@
 - [Local REST API](https://www.npmjs.com/package/json-server) Test/Local development
 - [Local Storage](https://www.puresourcecode.com/dotnet/blazor/use-localstorage-with-blazor-webassembly/) Core, UX
 - [Use HTTPClientFactory](https://code-maze.com/using-httpclientfactory-in-asp-net-core-applications/) Core
+- [Authentication](https://docs.microsoft.com/en-us/aspnet/core/blazor/security/?view=aspnetcore-6.0) Core

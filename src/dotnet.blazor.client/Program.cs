@@ -4,6 +4,7 @@ using dotnet.blazor.client;
 using MudBlazor.Services;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -20,6 +21,9 @@ builder.Services.AddHttpClient("Client.API", config =>
 
 builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("Client.API")
     .EnableIntercept(sp));
+
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+builder.Services.AddAuthorizationCore();
 
 builder.Services.AddMudServices();
 builder.Services.AddBlazoredLocalStorage();
