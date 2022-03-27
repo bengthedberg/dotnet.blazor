@@ -1,0 +1,26 @@
+@namespace dotnet.blazor.client.Components
+
+@inject NavigationManager Navigation
+@inject ILocalStorageService LocalStorage
+@inject AuthenticationStateProvider AuthStateProvider
+
+<AuthorizeView>
+    <Authorized>
+        <MudMenu Icon="@Icons.Filled.Person" Color="Color.Default" Direction="Direction.Right" OffsetY="true">
+            <MudMenuItem>@context.User.Identity.Name</MudMenuItem>
+            <MudIconButton Icon="@Icons.Material.Filled.Logout" Title="Logout" Color="Color.Primary" OnClick="@((e) => LogOutAsync())" />
+        </MudMenu>
+    </Authorized>
+    <NotAuthorized>
+        <MudIconButton Icon="@Icons.Filled.Login" Color="Color.Secondary" OnClick='() => Navigation.NavigateTo("/authentication/login")' />
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    async Task LogOutAsync()
+    {
+        await LocalStorage.RemoveItemAsync("token");
+        await AuthStateProvider.GetAuthenticationStateAsync();
+        Navigation.NavigateTo("authentication/login");
+    }
+}

@@ -1,0 +1,27 @@
+@namespace dotnet.blazor.client.Components
+
+<EditForm Model="_model" OnValidSubmit="LoginUserAsync">
+    <DataAnnotationsValidator />
+
+    <MudCard>
+        <MudCardContent>
+            <MudTextField Label="Email" @bind-Value="@_model.Email" />
+            <MudTextField InputType="InputType.Password" Label="Password" @bind-Value="@_model.Password" />
+
+            <ValidationSummary />
+
+            @if (!string.IsNullOrWhiteSpace(_errorMessage))
+            {
+                <MudAlert Severity="Severity.Error" Class="my-2" Variant="Variant.Filled">@_errorMessage</MudAlert>
+            }
+        </MudCardContent>
+
+        <MudCardActions>
+            <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Disabled="_isBusy">Login</MudButton>
+        </MudCardActions>
+    </MudCard>
+</EditForm>
+
+@code {
+
+}

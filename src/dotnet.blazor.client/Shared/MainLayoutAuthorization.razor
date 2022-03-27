@@ -1,0 +1,33 @@
+﻿@inherits LayoutComponentBase
+@inject Blazored.LocalStorage.ILocalStorageService localStore
+
+<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode"/>
+
+<MudLayout>
+    <MudAppBar Elevation="5" Dense="true" Color="Color.Transparent" >
+        <MudText Typo="Typo.h5" Class="ml-3">Application</MudText>
+        <MudSpacer />
+        <MudCheckBox @bind-Checked="@_isDarkMode" Color="Color.Inherit" UncheckedIcon="@Icons.Outlined.DarkMode" CheckedIcon="@Icons.Filled.WbSunny" Edge="Edge.End" />
+    </MudAppBar>
+    <MudMainContent>
+        <MudGrid Justify="Justify.Center" style="my-6">
+            <MudItem xs="12" sm="8" md="5" lg="4">
+                @Body
+            </MudItem>
+        </MudGrid>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private bool _isDarkMode;
+    private MudThemeProvider _mudThemeProvider;
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && _mudThemeProvider is not null)
+        {
+            _isDarkMode = await localStore.GetItemAsync<bool>("DarkMode");
+            StateHasChanged();
+        }
+    }
+}

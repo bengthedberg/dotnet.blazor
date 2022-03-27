@@ -4,6 +4,7 @@
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"> 
                 <NotAuthorized>
                     <MudAlert Severity="Severity.Warning">You need to be authorised to view this.</MudAlert>
+                    <MudLink Href="/authentication/login" Color="Color.Primary">Login</MudLink>
                 </NotAuthorized>
             </AuthorizeRouteView>
         </Found>
