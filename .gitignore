@@ -3,6 +3,13 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Set the default behavior, in case people don't have core.autocrlf set
+* text=auto
+
+# These files are text and should be normalized (Convert crlf => lf)
+*.*             eol=lf
+
+
 # User-specific files
 *.rsuser
 *.suo
