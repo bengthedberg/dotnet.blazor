@@ -6,5 +6,5 @@
 - [Local Storage](https://www.puresourcecode.com/dotnet/blazor/use-localstorage-with-blazor-webassembly/) Core, UX
 - [Use HTTPClientFactory](https://code-maze.com/using-httpclientfactory-in-asp-net-core-applications/) Core
 - [Authentication](https://docs.microsoft.com/en-us/aspnet/core/blazor/security/?view=aspnetcore-6.0) Core
-- [Local API witj auth](https://github.com/techiediaries/fake-api-jwt-json-server) Test/Local development
+- [Local API with auth](https://github.com/techiediaries/fake-api-jwt-json-server) Test/Local development
 - 
