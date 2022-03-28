@@ -3,16 +3,20 @@
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"> 
                 <NotAuthorized>
-                    <MudAlert Severity="Severity.Warning">You need to be authorised to view this.</MudAlert>
-                    <MudLink Href="/authentication/login" Color="Color.Primary">Login</MudLink>
+                    <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+                        <MudAlert Severity="Severity.Warning">You need to be authorised to view this.</MudAlert>
+                        <MudLink Href="/authentication/login" Color="Color.Primary">Login</MudLink>
+                    </MudContainer>
                 </NotAuthorized>
             </AuthorizeRouteView>
         </Found>
         <NotFound>
-            <PageTitle>Not found</PageTitle>
-            <LayoutView Layout="@typeof(MainLayout)">
-                <MudIcon Icon="@Icons.Filled.AirlineStops" Color="Color.Warning" Size="Size.Large"/><MudText Typo="Typo.h4">Sorry, don't know anything about that...</MudText>
-            </LayoutView>
+            <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+                <PageTitle>Not found</PageTitle>
+                <LayoutView Layout="@typeof(MainLayout)">
+                    <MudIcon Icon="@Icons.Filled.AirlineStops" Color="Color.Warning" Size="Size.Large"/><MudText Typo="Typo.h4">Sorry, don't know anything about that...</MudText>
+                </LayoutView>
+            </MudContainer>
         </NotFound>
     </Router>
 </CascadingAuthenticationState>

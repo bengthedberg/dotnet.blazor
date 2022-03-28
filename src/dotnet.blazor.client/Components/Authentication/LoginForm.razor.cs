@@ -21,6 +21,9 @@ public partial class LoginForm : ComponentBase
     [Inject]
     public ILocalStorageService Storage { get; set; }
 
+    [Parameter]
+    public string ReturnUrl { get; set; } = string.Empty;
+
 
     private LoginRequest _model = new LoginRequest();
     private bool _isBusy = false;
@@ -45,7 +48,11 @@ public partial class LoginForm : ComponentBase
 
             await AuthenticationStateProvider.GetAuthenticationStateAsync();
 
-            Navigation.NavigateTo("/"); 
+            System.Console.WriteLine($"url = {ReturnUrl}");
+            if (string.IsNullOrEmpty(ReturnUrl))
+                Navigation.NavigateTo("/");
+            else
+                Navigation.NavigateTo(ReturnUrl); 
         }
         else
         {

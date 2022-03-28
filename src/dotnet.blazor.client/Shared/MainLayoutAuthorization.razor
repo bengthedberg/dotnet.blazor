@@ -7,7 +7,7 @@
     <MudAppBar Elevation="5" Dense="true" Color="Color.Transparent" >
         <MudText Typo="Typo.h5" Class="ml-3">Application</MudText>
         <MudSpacer />
-        <MudCheckBox @bind-Checked="@_isDarkMode" Color="Color.Inherit" UncheckedIcon="@Icons.Outlined.DarkMode" CheckedIcon="@Icons.Filled.WbSunny" Edge="Edge.End" />
+        <MudCheckBox @bind-Checked="@DarkMode" Color="Color.Inherit" UncheckedIcon="@Icons.Outlined.DarkMode" CheckedIcon="@Icons.Filled.WbSunny" Edge="Edge.End" />
     </MudAppBar>
     <MudMainContent>
         <MudGrid Justify="Justify.Center" style="my-6">
@@ -20,14 +20,26 @@
 
 @code {
     private bool _isDarkMode;
+    public bool DarkMode {
+        get 
+		{ 
+			return _isDarkMode; 
+		}
+		set
+		{
+			_isDarkMode = value;
+            localStore.SetItemAsync("DarkMode", _isDarkMode);
+			
+			StateHasChanged();
+		}
+    }
     private MudThemeProvider _mudThemeProvider;
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && _mudThemeProvider is not null)
         {
-            _isDarkMode = await localStore.GetItemAsync<bool>("DarkMode");
-            StateHasChanged();
+            DarkMode = await localStore.GetItemAsync<bool>("DarkMode");
         }
     }
 }

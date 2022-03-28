@@ -1,10 +1,14 @@
 @layout MainLayoutAuthorization 
 @page "/authentication/login"
+@page "/authentication/login/{returnUrl}"
 @attribute [AllowAnonymous]
 
 <PageTitle>Welcome to the Application</PageTitle>
 
-<LoginForm />
+<LoginForm ReturnUrl="@returnUrl"/>
 
 @code {
+
+    [Parameter]
+    public string returnUrl { get; set; } = string.Empty;
 }

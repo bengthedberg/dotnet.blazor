@@ -9,7 +9,7 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h5" Class="ml-3">Application</MudText>
         <MudSpacer />
-        <MudCheckBox @bind-Checked="@_isDarkMode" Color="Color.Inherit" UncheckedIcon="@Icons.Outlined.DarkMode" CheckedIcon="@Icons.Filled.WbSunny"/>
+        <MudCheckBox @bind-Checked="@DarkMode" Color="Color.Inherit" UncheckedIcon="@Icons.Outlined.DarkMode" CheckedIcon="@Icons.Filled.WbSunny"/>
         <LoginDisplay />
         <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
     </MudAppBar>
@@ -31,19 +31,31 @@
         var user = (await AuthStat).User;
         if(!user.Identity.IsAuthenticated)
         {
-            NavigationManager.NavigateTo($"authentication/login?returnUrl={Uri.EscapeDataString(NavigationManager.ToBaseRelativePath(NavigationManager.Uri))}");
+            NavigationManager.NavigateTo($"authentication/login/{Uri.EscapeDataString(NavigationManager.ToBaseRelativePath(NavigationManager.Uri))}");
         }
     }
 
     private bool _isDarkMode;
+    public bool DarkMode {
+        get 
+		{ 
+			return _isDarkMode; 
+		}
+		set
+		{
+			_isDarkMode = value;
+            localStore.SetItemAsync("DarkMode", _isDarkMode);
+			
+			StateHasChanged();
+		}
+    }
     private MudThemeProvider _mudThemeProvider;
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && _mudThemeProvider is not null)
         {
-            _isDarkMode = await localStore.GetItemAsync<bool>("DarkMode");
-            StateHasChanged();
+            DarkMode = await localStore.GetItemAsync<bool>("DarkMode");
         }
     }
     bool _drawerOpen = true;
